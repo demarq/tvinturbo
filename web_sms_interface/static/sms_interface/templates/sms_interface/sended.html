@@ -1,0 +1,63 @@
+{% extends 'sms_interface/wrappers/base.html' %}
+
+{% block notice %}
+    {% include 'sms_interface/notices/info_notice.html' %}
+    {% include 'sms_interface/notices/error_notice.html' %}
+{% endblock %}
+
+
+{% block content %}
+    <div class="offset-1 col-md-10" style="margin-top: 20px;">
+        <div class="offset-4 col-md-5">
+            <div>
+                <div class="card-body">
+                    <form class='form-inline' method="get">
+                        <div class="form form-inline">
+                            <input type="search" aria-label="Найти" class="form-control mr-sm-2" name="pattern" placeholder="Шаблон поиска">
+                        </div>
+                        <input type="submit" value="Попробовать" class="btn btn-primary">
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card bg-secondary bg-dark">
+            <div class="card-body">
+                <table class="table bg-dark table-dark">
+                    <thead>
+                        <th scope="col">#</th>
+                        <th scope="col">Номер</th>
+                        <th scope="col">Сообщение</th>
+                        <th scope="col">Отправитель</th>
+                        <th scope="col">Дата</th>
+                    </thead>
+                    <tbody>
+                    {% for m in messages %}
+                        <tr>
+                        <th scope="row">{{ m.id }}</th>
+                        <td> {{ m.number }}</td>
+                        <td> {{ m.message }}</td>
+                        <td> {{ m.user.first }}</td>
+                        <td> {{ m.date }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="offset-4 col-md-1" style="margin-top: 15px; margin-bottom: 15px;">
+            <nav>
+                <ul class="pagination ">
+                    {% if messages.has_previous %}
+                        <li class="page-item "><a href="?page=1" class="border-dark page-link bg-dark text-primary">Начало</a></li>
+                        <li class="page-item"><a class="border-dark page-link bg-dark text-primary" href="?page={{ messages.previous_page_number }}">Предыдущая</a></li>
+                    {% endif %}
+                    <li class="text-warning page-item"> <a class="border-dark page-link bg-dark">{{ messages.number }}</a></li>
+                    {% if messages.has_next %}
+                        <li class="page-item"><a class="border-dark text-primary page-link bg-dark" href="?page={{ messages.next_page_number }}">Следующая</a></li>
+                        <li class="page-item"><a class="border-dark text-primary page-link bg-dark" href="?page={{ messages.paginator.num_pages }}">Последняя</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock %}

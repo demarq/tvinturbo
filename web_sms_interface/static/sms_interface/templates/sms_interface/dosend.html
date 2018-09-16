@@ -1,0 +1,11 @@
+{% extends 'sms_interface/wrappers/base.html' %}
+
+{% block notice %}
+    {% include 'sms_interface/notices/error_notice.html' %}
+    {% include 'sms_interface/notices/info_notice.html' %}
+{% endblock %}
+
+
+{% block content %}
+    {% include 'sms_interface/wrappers/settings_wrapper.html' %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'sms_interface/wrappers/forms_wrapper.html' %}
+
+{% block form_errors %}
+    {% for field in signup_form %}
+        {% if field.errors %}
+            <div class="card bg-danger" style="margin-bottom: 2px">
+                <div class="card-body">
+                    <small>{{ field.label }} - {{ field.errors }}</small>
+                </div>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
+
+{% block form %}
+    <div class="form-group">
+        <label for="username" class="text-info">Никнейм</label>
+        <input type="text" class="form-control" name="username" aria-describedby="username" placeholder="example">
+    </div>
+    <div class="form-group">
+        <label for="password" class="text-info">Пароль</label>
+        <input type="password" class="form-control" name="password" aria-describedby="password" placeholder="******">
+    </div>
+    <button type="submit" class="btn btn-outline-primary">Попробовать</button>
+    <div class="form-group">
+    <small class="text-primary">Или <a class="text-warning" href="{% url 'signup' %}">зарегистрироваться</a></small>
+    </div>
+{% endblock %}

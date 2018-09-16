@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" href="{% static 'sms_interface/css/bootstrap.min.css'%}">
+    <meta charset="UTF-8">
+    <title>{{ form_name }}</title>
+</head>
+<body class="bg-secondary">
+<div class="bg-secondary" style="margin-bottom: 13%">
+
+</div>
+
+<div class="offset-4 col-md-4 align-content-center">
+    <div class="text-warning">
+        {% block form_errors %}
+        {% endblock %}
+    </div>
+
+    <div class="card bg-dark">
+        <div class="card-body">
+            <h4 class="card-title">{{ form_name }}</h4>
+            <form action="{{ action_url }}" method="post">
+            {% csrf_token %}
+                {% block form %}
+                {% endblock %}
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

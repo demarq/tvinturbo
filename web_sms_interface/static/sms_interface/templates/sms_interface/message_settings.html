@@ -1,0 +1,94 @@
+
+
+{% extends 'sms_interface/wrappers/base.html' %}
+{% block notice %}
+    {% if errors %}
+        <div class="offset-1 col-md-10" style="margin-top: 15px">
+            <div class="card card-header bg-warning">
+                <p class="h3 text-center">Что-то пошло не так. Проверьте данные и попробуйте еще раз.
+                </p>
+            </div>
+            {% if non_field_errors %}
+                <div class="card-body">
+                    {% for error in non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% if confirm %}
+        <div class="card card-header bg-warning">
+            <p class="h3 text-center">Вы правда хотите удалить <h4 class="text-center text-uppercase text-danger"> {{ database_to_delete.name }} </h4>
+            </p>
+            <a class="text-danger btn btn-warning" href="{{ request.path }}?del_confirm=True&delete={{ database_to_delete.id }}">Да</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="offset-1 col-md-10" style="margin-top: 20px;">
+        <div class="card bg-dark">
+            <div class="card-header text-center">
+                <p class="text-primary h6 text-uppercase">Существующие настройки</p>
+            </div>
+            <div class="card-body">
+                <table class="table table-dark text-center">
+                    <thead>
+                        <th scope="col">Название</th>
+                        <th scope="col">Биллинг БД</th>
+                        <th scope="col">Турбосмс БД</th>
+                        <th scope="col">Удалить</th>
+                    </thead>
+                    <tbody >
+                        {% for s in settings %}
+                            <tr>
+                                <th scope="row" >{{ s.name }}</th>
+                                <td>{{ s.db_from.first.name }}</td>
+                                <td>{{ s.db_to.first.name }}</td>
+                                <td class="text-center">
+                                    <a href="{{ request.path }}?delete={{ s.id }}">
+                                        <i class="fas fa-2x fa-window-close">
+                                        </i></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="offset-4 col-md-5" style="margin-top: 10px">
+            <div class="card bg-dark">
+                <div class="card-header text-center">
+                   <p class="h6 text-primary text-uppercase">Добавить новые настройки</p>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name" class="text-primary text-center">Название сета настроек</label>
+                            <input type="text" class="form-control" name='name' value="default">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_db_from" class="text-center text-primary">Выбор настроек биллинга</label>
+                            <select class='custom-select'  name="db_from" id="id_db_from" multiple="" required="">
+                                {% for database in databases %}
+                                    <option value="{{ database.id }}">{{ database.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_db_to" class="text-primary text-center">Выбор настроек турбосмс </label>
+                            <select class='custom-select'  name="db_to" id="id_db_to" multiple="" required="">
+                                {% for database in databases %}
+                                    <option value="{{ database.id }}">{{ database.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <input type="submit" class="btn btn-outline-primary submit-row" value="Сохранить">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

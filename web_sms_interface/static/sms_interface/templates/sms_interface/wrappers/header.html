@@ -1,0 +1,38 @@
+{% url 'index' as index_url %}
+{% url 'dosend' as dosend_url %}
+{% url 'settings' as settings_url %}
+{% url 'message_settings' as message_settings_url %}
+{% url 'users' as users_url %}
+
+{% block header %}
+    <nav class="navbar navbar-dark bg-dark navbar-expand " style="padding-top: 10px">
+
+        <div class="navbar-collapse collapse ">
+            <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item ">
+                    <a class="nav-link {% if request.path == index_url %} text-primary  {% else %} disabled {% endif %}" href="{% url 'index' %}">Отправленные</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == dosend_url %} text-primary {% else %} disabled {% endif %}" href="{% url 'dosend' %}">Отправить</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == settings_url %} text-primary  {% else %} disabled  {% endif %}" href="{% url 'settings' %}">Настройки</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == message_settings_url %} text-primary  {% else %} disabled  {% endif %}" href="{% url 'message_settings' %}">Настройки cообщений</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == users_url %} text-primary  {% else %} disabled  {% endif %}" href="{% url 'users' %}">Настройки пользователей</a>
+                </li>
+            </ul>
+            <div class="btn my-2 my-sm-0">
+            {% if request.user.id is not None %}<a href="{% url 'user page' request.user.id %}">{{ request.user }}</a>{% else %}{% endif %}
+            </div>
+            <button class="btn btn-outline-success my-2 my-sm-0">
+                <a href="{% url 'logout' %}">logout</a></button>
+
+        </div>
+    </nav>
+
+{% endblock %}

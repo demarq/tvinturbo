@@ -1,0 +1,39 @@
+{% extends 'sms_interface/wrappers/base.html' %}
+
+{% block notices %}
+    {% include 'sms_interface/wrappers/info_notice.html' %}
+    {% include 'sms_interface/wrappers/error_notice.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="offset-1 col-md-10" style="margin-top: 20px;">
+        <div class="card bg-dark">
+            <div class="card-header text-center">
+                <p class="text-primary h6 text-uppercase">{{ page.title }}</p>
+            </div>
+            <div class="card-body">
+                <table class="table table-dark text-center">
+                    <thead>
+                        <th scope="col">ID</th>
+                        <th scope="col">Пользователь</th>
+                        <th scope="col">Админ?</th>
+                        <th scope="col">Когда присоединился</th>
+                        <th scope="col">Изменить привилегии</th>
+                    </thead>
+                    <tbody >
+                    {% for i in info %}
+                        <tr>
+                            <td>{{ i.id }}</td>
+                            <td>{{ i.username }}</td>
+                            <td>{{ i.is_superuser }}</td>
+                            <td>{{ i.date_joined }}</td>
+                            <td>{% if i.is_superuser == False %}<a href="{% url 'users' %}?id={{ i.id }}&admin_set=True"><i class="fas fa-angle-double-up" ></a></i>
+                                {% else %}<a href="{% url 'users' %}?id={{ i.id }}&admin_set=False"><i class="fas fa-angle-double-down" ></a></i>{% endif %}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

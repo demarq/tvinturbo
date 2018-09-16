@@ -1,0 +1,83 @@
+{% extends 'sms_interface/wrappers/base.html' %}
+{% block notice %}
+    {% if errors %}
+        <div class="offset-1 col-md-10" style="margin-top: 15px">
+            <div class="card card-header bg-warning">
+                <p class="h3 text-center">Что-то пошло не так. Проверьте данные и попробуйте еще раз.
+                </p>
+            </div>
+            {% if non_field_errors %}
+                <div class="card-body">
+                    {% for error in non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% if confirm %}
+        <div class="card card-header bg-warning">
+            <p class="h3 text-center">Вы правда хотите удалить <h4 class="text-center text-uppercase text-danger"> {{ database_to_delete.name }} </h4>
+            </p>
+            <a class="text-danger btn btn-warning" href="{{ request.path }}?del_confirm=True&delete={{ database_to_delete.id }}">Да</a>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="offset-1 col-md-10 col-lg-10 col-xs-10" style="margin-top: 20px;">
+    {% if info %}
+        <div class="card bg-dark">
+            <div class="card-header text-center">
+                <p class="text-primary h6 text-uppercase">{{ page.title }}</p>
+            </div>
+            <div class="card-body">
+                <table class="table table-dark text-center">
+                    <thead>
+                    {% for i in info.0.get_fields_verbose %}
+                        <th scope="col">{{ i }}</th>
+                    {% endfor %}
+                    </thead>
+                    <tbody >
+                    {% for i in info %}
+                        <tr>
+                        {% for field in i.get_fields %}
+                            <td>{{ field }}</td>
+                        {% endfor %}
+                        <td class="text-center">
+                            <a href="{{ request.path }}?delete={{ i.id }}">
+                                <i class="fas fa-2x fa-window-close"></i></a>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+    {% if form %}
+        <form id="form" method="post">
+        {% csrf_token %}
+            <div class="offset-4 col-md-5" style="margin-top: 15px">
+                <div class="card bg-dark">
+                    <div class="card-body">
+                        <form id="form" class='' method="post">
+                            {% for element in form %}
+                                <div class="form-group">
+                                    <label class="text-primary">{{ element.label }}</label>
+                                    {{ element }}
+                                </div>
+                            {% endfor %}
+                            {% if confirm %}
+                                <input type="hidden" value="True" name="confirm">
+                            {% endif %}
+                            <input id="form_input"  type="submit" value="Попробовать" class="btn btn-outline-primary">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% endif %}
+{% endblock %}

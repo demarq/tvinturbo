@@ -1,0 +1,19 @@
+{% if notice_list %}
+    <div class="offset-1 col-md-10" style="margin-top: 15px">
+        <div class="card card-header bg-warning">
+            {% for info in notice_list %}
+                <p class="h3 text-center">
+                    {{ info.title }}
+                </p>
+                <p class="h5 text-center">
+                    {{ info.content }}
+                </p>
+                {% if info.url_to %}
+                    <a href="{{ info.url_to }}" class=" btn btn-dark text-warning">{{ info.btn_name }}</a>
+                {% endif %}
+                <br class="border-bottom border-dark">
+            {% endfor %}
+
+        </div>
+    </div>
+{% endif %}

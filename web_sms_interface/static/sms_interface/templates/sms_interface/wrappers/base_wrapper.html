@@ -1,0 +1,39 @@
+<div class="offset-1 col-md-10" style="margin-top: 20px;">
+        <div class="offset-4 col-md-5">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <form class='' method="get">
+                        <div class="form-group">
+                            <label for="settings" class="text-primary">Settigns</label>
+                            <select class="custom-select bg-dark" name="settings">
+                            {% for set in settings %}
+                                <option value="{{ set.id }}">{{ set.name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message" class="text-primary">Отправляемое сообщение</label>
+                            <textarea type="text" class="form-control" name="message" placeholder="Сообщение которое будет отправленно"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="login" class="text-primary">Логин</label>
+                            <textarea type="text" class="form-control" name="login" placeholder="Если нужно отправить на конкретный(е) логин(ы)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="number" class="text-primary">Номер</label>
+                            <textarea type="text" class="form-control" name="number" placeholder="Если нужно отправить на конкретный(е) номер(а)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="address" class="text-primary">Адрес</label>
+                            <textarea type="text" class="form-control" name="address" placeholder="Если нужно отправить на конкретный(е) адрес(а)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="calculate_depts" class="text-primary">Посчитать долги?</label>
+                            <input type="checkbox" name='calculate_depts' class="form-control">
+                        </div>
+                        <input type="submit" value="Попробовать" class="btn btn-outline-primary">
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
