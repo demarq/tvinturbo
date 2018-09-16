@@ -113,7 +113,6 @@ class DoSendForm(forms.Form):
         params.update({'db_from': {'host': bill.host,
                                    'port': bill.port,
                                    'user': bill.db_user,
-                                   'table': bill.db_table,
                                    'database': bill.name,
                                    'charset': bill.db_charset,
                                    'password': bill.db_password
@@ -122,10 +121,11 @@ class DoSendForm(forms.Form):
                                  'port': tur.port,
                                  'user': tur.db_user,
                                  'database': tur.name,
-                                 'table': tur.db_table,
+                                 # 'table': tur.db_table,
                                  'charset': tur.db_charset,
                                  'password': tur.db_password
-                                 }})
+                                 },
+                       'table': tur.db_table})
 
         return core.MessageSender(message=self.cleaned_data['message'],
                                   login=self.cleaned_data['login'],

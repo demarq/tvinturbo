@@ -63,29 +63,29 @@ class MessageSender:
 
     def send(self):
         nodes = self._nodes
-        print('Ready to send. \n')
         database = self._params['db']['db_to']
         try:
             turbosms_db = mysql.connector.connect(**database)
             turbosms_cursor = turbosms_db.cursor()
-            os.chdir('/tmp')
             test_file = open("%s.log" % (re.sub(r' ', '_', time.ctime())), "a")
             for node in nodes:
-                print(node)
+                print('NODE', len(node.number), node.number)
                 if self._debug:
                     print(node.message)
-                    print('INSERT INTO %s (number, message, sign, send_time) VALUES (%s, \'%s\', \'Tvintel\', NOW());' % (self._params['db_to']['table'], node.number, node.message))
+                    print('INSERT INTO %s (number, message, sign, send_time) VALUES (%s, \'%s\', \'Tvintel\', NOW());' % (self._params['db']['table'], node.number, node.message))
                 if len(node.number) == 12:
                     test_file.write(node.message + '\n')
-                    turbosms_cursor.execute('INSERT INTO %s (number, message, sign, send_time) VALUES (\'%s\', \'%s\', \'Tvintel\', NOW());' % (self._params['db_to']['table'], node.number, node.message))
+                    print(self._params['db']['table'])
+                    turbosms_cursor.execute('INSERT INTO %s (number, message, sign, send_time) VALUES (\'%s\', \'%s\', \'Tvintel\', NOW());' % (self._params['db']['table'], node.number, node.message))
                     turbosms_db.commit()
                 else:
                     test_file.write('Плохой номер: %s' % node.message)
-                    nodes.pop(nodes.index(node))
+                    # nodes.pop(nodes.index(node))
 
         except Error as e:
             print(e)
         finally:
+            print(turbosms_cursor, turbosms_db, sep='\n AAAA')
             turbosms_db.close()
             turbosms_cursor.close()
             return nodes

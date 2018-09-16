@@ -132,6 +132,7 @@ def dosend(request):
                            'confirm': True,
                            }
                 if request.POST.get('confirm') == 'True':
+                    message_sender.send()
                     for node in nodes:
                         message = Message(message=node.message, number=node.number)
                         message.save()

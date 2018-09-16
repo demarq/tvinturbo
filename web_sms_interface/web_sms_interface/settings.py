@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '=_@ibj1%9+_gyo@4lk4kdxh(=1!ajicu$a^jz12dun5miejz92'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -122,8 +122,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-# STATIC_ROOT = 'web_sms_interface/static'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static/")]
+STATIC_ROOT = ''
 
 # Login url
 LOGIN_URL = '/login/'
