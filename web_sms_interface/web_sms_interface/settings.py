@@ -123,7 +123,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
-STATIC_ROOT = 'web_sms_interface/static'
+# STATIC_ROOT = 'web_sms_interface/static'
 
 # Login url
-LOGIN_URL = 'login/'
+LOGIN_URL = '/login/'

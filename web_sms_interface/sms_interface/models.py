@@ -18,6 +18,7 @@ class DatabaseConfig(models.Model):
     name = models.CharField(max_length=50, default='some database', verbose_name='Имя БД')
     host = models.CharField(max_length=50, verbose_name='Хост БД')
     port = models.CharField(max_length=5, default='3306', verbose_name='Порт БД')
+    db_table = models.CharField(max_length=20, default='', verbose_name='Таблица БД', blank=True)
     db_user = models.CharField(max_length=20, verbose_name='Пользователь БД')
     db_password = models.CharField(max_length=20, default='', blank=True, verbose_name='Пароль пользователя БД')
     db_charset = models.CharField(max_length=10, default='utf8', blank=True, verbose_name='Кодировка БД')

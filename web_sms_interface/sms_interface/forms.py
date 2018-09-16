@@ -35,6 +35,7 @@ class SettingsForm(forms.ModelForm):
     config_name = forms.CharField(error_messages={'required': 'Название конфига не может быть пустым'}, label='Название Конфига', widget=widget)
     name = forms.CharField(error_messages={'required': 'Имя БД не может быть пустым'}, label='Имя БД', widget=widget)
     host = forms.CharField(error_messages={'required': 'Хост БД не может быть пустым'}, label='Хост БД', widget=widget)
+    db_table = forms.CharField(error_messages={'required': 'Таблица БД не может быть пустой'}, label='Таблица БД', widget=widget)
     port = forms.CharField(error_messages={'required': 'Порт БД не может быть пустым'}, label='Порт БД', widget=widget)
     db_user = forms.CharField(error_messages={'required': 'Пользователь БД не может быть пустым'}, label='Пользователь БД',
                               widget=widget
@@ -112,6 +113,7 @@ class DoSendForm(forms.Form):
         params.update({'db_from': {'host': bill.host,
                                    'port': bill.port,
                                    'user': bill.db_user,
+                                   'table': bill.db_table,
                                    'database': bill.name,
                                    'charset': bill.db_charset,
                                    'password': bill.db_password
@@ -120,6 +122,7 @@ class DoSendForm(forms.Form):
                                  'port': tur.port,
                                  'user': tur.db_user,
                                  'database': tur.name,
+                                 'table': tur.db_table,
                                  'charset': tur.db_charset,
                                  'password': tur.db_password
                                  }})

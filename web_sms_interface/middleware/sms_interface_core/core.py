@@ -74,10 +74,10 @@ class MessageSender:
                 print(node)
                 if self._debug:
                     print(node.message)
-                    print('INSERT INTO testinsert (number, message, sign, send_time) VALUES (%s, \'%s\', \'Tvintel\', NOW());' % (node.number, node.message))
+                    print('INSERT INTO %s (number, message, sign, send_time) VALUES (%s, \'%s\', \'Tvintel\', NOW());' % (self._params['db_to']['table'], node.number, node.message))
                 if len(node.number) == 12:
                     test_file.write(node.message + '\n')
-                    turbosms_cursor.execute('INSERT INTO testinsert (number, message, sign, send_time) VALUES (\'%s\', \'%s\', \'Tvintel\', NOW());' % (node.number, node.message))
+                    turbosms_cursor.execute('INSERT INTO %s (number, message, sign, send_time) VALUES (\'%s\', \'%s\', \'Tvintel\', NOW());' % (self._params['db_to']['table'], node.number, node.message))
                     turbosms_db.commit()
                 else:
                     test_file.write('Плохой номер: %s' % node.message)
